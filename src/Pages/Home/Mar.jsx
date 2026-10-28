@@ -7,7 +7,7 @@ const Mar = () => {
     <div>
       <div className="shadow-2xl p-20">
       <div className="ml-96 mb-10 shadow-red-700 w-2/5 justify-center items-center">
-      <img src="https://i.ibb.co/BCFnTcc/cr.png" alt="" />
+      <img src="https://i.ibb.co.com/Xf5DpSGd/Our.png" alt="" />
     </div>
         <div>
             <Marquee>
