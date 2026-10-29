@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import AddProduct from './Pages/AddProduct/AddProduct';
 import MyCart from './Pages/MyCart/MyCart';
-import Login from './Pages/Login/LOGIN.JSX';
+import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import UpdateProduct from './Pages/UpdateProduct/UpdateProduct';
 import Bmw from './Pages/CarBrand/Bmw';
