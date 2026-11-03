@@ -1,10 +1,9 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const API_BASE_URL = (
-  import.meta.env.VITE_API_URL || "http://localhost:5001"
-).replace(/\/+$/, "");
+import API_URL from "../../config/api";
 
 const CarCard = ({ car = {}, onDelete }) => {
   const {
@@ -54,7 +53,7 @@ const CarCard = ({ car = {}, onDelete }) => {
     try {
       setDeleting(true);
 
-      const response = await fetch(`${API_BASE_URL}/car/${_id}`, {
+      const response = await fetch(`${API_URL}/car/${_id}`, {
         method: "DELETE",
       });
 

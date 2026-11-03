@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+import API_URL from "../../config/api";
 
 const brands = [
   { name: "BMW", label: "BMW", color: "from-blue-600 to-sky-400" },

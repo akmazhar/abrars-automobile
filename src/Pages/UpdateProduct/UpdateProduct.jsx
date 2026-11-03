@@ -3,7 +3,7 @@ import { useLoaderData, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const API_URL =
-  import.meta.env.VITE_API_URL || "https://abrars-automobile-server.vercel.app";
+  import API_URL from "../../config/api";
 
 const UpdateProduct = () => {
   const car = useLoaderData();
