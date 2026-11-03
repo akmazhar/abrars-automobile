@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useLoaderData, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const API_URL =
-  import API_URL from "../../config/api";
+
+import API_URL from "../../config/api";
 
 const UpdateProduct = () => {
   const car = useLoaderData();
