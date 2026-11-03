@@ -3,80 +3,65 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const ProductDetails = () => {
-    // const car = useLoaderData();
-    // const { _id, name, rating, price, type, image, brandName, shortDescription } = car;
-    //   console.log(name, price);
-      const { id } = useParams();
-      console.log(id);
-  const [data, setData] = useState({});
+    const { id } = useParams();
+    const [data, setData] = useState({});
 
-  useEffect(() => {
-    fetch(`https://abrars-automobile-server.vercel.app/product/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      });
-  }, [id]);
-   
-   const oneCart = {
-    image: data.image,
-    name: data.name,
-    brandName: data.brandName,
-    price: data.price,
-    type: data.type,
+    useEffect(() => {
+        fetch(`http://localhost:5001/product/${id}`)
+            .then((res) => res.json())
+            .then((data) => setData(data));
+    }, [id]);
 
-   }
+    const addToCartHandle = () => {
+        const oneCart = {
+            image: data.image,
+            name: data.name,
+            brandName: data.brandName,
+            price: data.price,
+            type: data.type,
+        };
 
-   
-   const addToCartHandle = () =>{
-    console.log(oneCart)
-    fetch('https://abrars-automobile-server.vercel.app/brandCarts', {
-        method: "POST",
-        headers: {
-            'content-type' : 'application/json'
-        },
-        body: JSON.stringify(oneCart),
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        if(data.insertedId){
-            Swal.fire({
-                title: 'Success!',
-                text: 'Your Car is nicely selected',
-                icon: 'success',
-                confirmButtonText: 'Thank You!'
-              });
-        }
-    })
+        fetch('http://localhost:5001/brandCarts', {
+            method: "POST",
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(oneCart),
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.insertedId) {
+                Swal.fire('Success!', 'Your Car is nicely selected', 'success');
+            }
+        });
+    };
 
-   }
     return (
-        <div className="card card-side bg-base-100 mt-20 ml-52 mr-40 shadow-2xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-            <figure className="ml-3"><img src={data.image} alt="image" /></figure>
-            <div className="card-body px-15 py-10">
-                <div className="grid">
-                    <div>
-                        <h2 className="card-title text-orange-950 font-serif">Name: {data.name}</h2>
-                        <p className="font-mono font-bold text-pink-700">Brand Name: {data.brandName}</p>
-                        <p className="font-mono">Type: {data.type}</p>
-                        <p className="font-serif">In Short: {data.shortDescription}</p>
-                        <h2 className="font-mono font-medium">Price: {data.price}</h2>
-                        <p className="font-sans text-yellow-600 font-semibold">Rating: {data.rating}</p>
+        <div className="min-h-screen flex items-center justify-center p-6 bg-slate-100">
+            <div className="card lg:card-side bg-white shadow-2xl rounded-3xl overflow-hidden max-w-5xl w-full">
+                <figure className="lg:w-1/2 bg-gray-200 p-4">
+                    <img src={data.image} alt={data.name} className="rounded-xl object-contain h-80 lg:h-96 w-full" />
+                </figure>
+                <div className="card-body lg:w-1/2 p-8">
+                    <h2 className="card-title text-3xl font-extrabold text-slate-800 mb-2">{data.name}</h2>
+                    <p className="text-gray-500 font-medium italic mb-4">{data.shortDescription}</p>
+                    
+                    <div className="flex gap-3 mb-6">
+                        <span className="badge badge-primary p-3">{data.brandName}</span>
+                        <span className="badge badge-neutral p-3">{data.type}</span>
+                        <span className="badge badge-warning text-white p-3">⭐ {data.rating}</span>
                     </div>
-                    <div className="btn-group btn-group-vertical mt-10  space-y-2 justify-end">
-                        
-                            <button onClick={addToCartHandle} className="btn bg-green-800 mr-92 shadow-amber-600 text-white font-mono border-red-600 border-spacing-8 px-10">Add to Cart</button>
-                        
+
+                    <p className="text-3xl font-black text-green-600 mb-8">{data.price}</p>
+
+                    <div className="card-actions mt-auto">
+                        <button onClick={addToCartHandle} className="btn btn-block btn-success text-white text-lg shadow-lg hover:shadow-xl">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        
     );
-    
 };
 
 export default ProductDetails;

@@ -1,150 +1,514 @@
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+
+const brands = [
+  { name: "BMW", label: "BMW", color: "from-blue-600 to-sky-400" },
+  {
+    name: "MERCEDES-BENZ",
+    label: "Mercedes-Benz",
+    color: "from-slate-600 to-slate-400",
+  },
+  { name: "TESLA", label: "Tesla", color: "from-red-600 to-rose-400" },
+  { name: "TOYOTA", label: "Toyota", color: "from-red-500 to-orange-400" },
+  { name: "FORD", label: "Ford", color: "from-blue-700 to-indigo-400" },
+  { name: "HONDA", label: "Honda", color: "from-red-700 to-pink-400" },
+];
+
 const AddProduct = () => {
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageError, setImageError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState("");
 
-    const handleAddProduct = event => {
-        event.preventDefault();
-        
-        const form = event.target;
-        const name = form.name.value;
-        const type = form.type.value;
-        const rating = form.rating.value;
-        const price = form.price.value;
-        const shortDescription = form.shortDescription.value;
-        const image = form.image.value;
-        
-        const newCar = {name, rating, price, type, shortDescription, image};
-        console.log(newCar);
+  const handleAddProduct = async (event) => {
+    event.preventDefault();
 
-        //send data to the server
-        fetch('https://abrars-automobile-server.vercel.app/car', {
-         method: 'POST',
-         headers:  {
-            'content-type':'application/json'
-         },
-         body: JSON.stringify(newCar)
-        })
-         .then(res =>res.json())
-         .then(data => {
-            console.log(data);
-            if(data.insertedId){
-               Swal.fire({
-                  title: 'Success!',
-                  text: 'Vehicle Added Efficiently',
-                  icon: 'success',
-                  confirmButtonText: 'Great'
-                })
-            }
+    const form = event.target;
 
-         })
+    const newCar = {
+      name: form.name.value.trim(),
+      type: form.type.value.trim(),
+      rating: form.rating.value,
+      price: form.price.value.trim(),
+      brandName: form.brandName.value.toUpperCase(),
+      shortDescription: form.shortDescription.value.trim(),
+      image: form.image.value.trim(),
+    };
 
+    if (Number(newCar.rating) < 0 || Number(newCar.rating) > 5) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid Rating",
+        text: "Rating must be between 0 and 5.",
+        confirmButtonColor: "#c59d5f",
+      });
+      return;
     }
 
-    return (
+    try {
+      setLoading(true);
 
-        <div className="bg-[#c2f4bc] p-40">
-              
-             <div className="flex justify-center items-center text-center mb-5 rounded-3xl">
-             {/* <h1 className='text-3xl text-center font-extrabold font-mono p-3 ml-40 text-blue-600'>Pick Your Car<span className='text-orange-950 font-semibold font-serif'> : Quiet, Rapid, Classic Elegance.</span></h1> */}
-             {/* <img className="justify-center items-center" src="/car.png" alt="" width={200}/> */}
-             <img className="justify-center items-center" src="https://i.ibb.co/9brLRQk/2.jpg" alt="" width={1250}/>
-             </div>
+      const response = await fetch(`${API_URL}/car`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCar),
+      });
 
-        <form onSubmit={handleAddProduct}>
-        <div className="md:flex gap-2 justify-center mb-5">
-        <div className="form-control md:w-1/2">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Name of Car</span>
-                    </label>
-                    <label className="input-group">
-             <input type="text" name="name" placeholder="Car Model Name" className="input input-bordered w-full" />
-          </label>
-       </div>
+      const data = await response.json();
 
+      if (!response.ok || !data.insertedId) {
+        throw new Error(data.message || "Unable to add vehicle.");
+      }
 
-      <div className="form-control md:w-1/2 ml-4">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Type</span>
-                    </label>
-                    <label className="input-group">
-             <input type="brand" name="type" placeholder="Mention the Brand Name" className="input input-bordered w-full" />
-          </label>
-       </div> 
+      await Swal.fire({
+        icon: "success",
+        title: "Vehicle Added Successfully!",
+        text: `${newCar.name} has been added to your collection.`,
+        confirmButtonText: "Excellent!",
+        confirmButtonColor: "#b58a4b",
+        background: "#ffffff",
+        color: "#172033",
+      });
+
+      form.reset();
+      setImageUrl("");
+      setImageError(false);
+      setSelectedBrand("");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Something Went Wrong!",
+        text: error.message || "Please check your server connection.",
+        confirmButtonColor: "#b91c1c",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputClass =
+    "w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-400 hover:border-slate-300 focus:border-[#b58a4b] focus:bg-white focus:ring-4 focus:ring-[#b58a4b]/10";
+
+  const labelClass =
+    "mb-2 block text-sm font-semibold tracking-wide text-slate-700";
+
+  return (
+    <main className="min-h-screen bg-[#f4f5f7] text-slate-800">
+      {/* Premium Hero Section */}
+      <section className="relative overflow-hidden bg-[#101827]">
+        <div className="absolute -right-20 -top-32 h-96 w-96 rounded-full bg-[#b58a4b]/10 blur-3xl"></div>
+        <div className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"></div>
+
+        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 py-14 sm:px-8 md:py-20 lg:grid-cols-2 lg:px-12">
+          <div className="z-10">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c59d5f]/30 bg-[#c59d5f]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#e5c58e]">
+              <span className="h-2 w-2 rounded-full bg-[#c59d5f]"></span>
+              Premium Vehicle Management
+            </div>
+
+            <h1 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Add Your
+              <span className="block text-[#c59d5f]">Dream Machine.</span>
+            </h1>
+
+            <p className="mt-6 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
+              Expand your automotive collection with exceptional vehicles. Add
+              detailed specifications, select a brand and showcase every machine
+              with its finest image.
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-8">
+              <div>
+                <p className="text-2xl font-bold text-white">06</p>
+                <p className="mt-1 text-xs uppercase tracking-widest text-slate-400">
+                  Premium Brands
+                </p>
+              </div>
+
+              <div className="h-12 w-px bg-white/15"></div>
+
+              <div>
+                <p className="text-2xl font-bold text-white">01</p>
+                <p className="mt-1 text-xs uppercase tracking-widest text-slate-400">
+                  Simple Process
+                </p>
+              </div>
+
+              <div className="h-12 w-px bg-white/15"></div>
+
+              <div>
+                <p className="text-2xl font-bold text-[#c59d5f]">100%</p>
+                <p className="mt-1 text-xs uppercase tracking-widest text-slate-400">
+                  Your Collection
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Hero Image */}
+          <div className="relative">
+            <div className="absolute inset-5 rounded-3xl bg-[#c59d5f]/20 blur-2xl"></div>
+
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-2 shadow-2xl backdrop-blur-sm">
+              <img
+                src="https://i.ibb.co.com/Dfp87WgS/Add-Y.jpg"
+                alt="Premium luxury automobile"
+                className="h-[260px] w-full rounded-2xl object-cover sm:h-[340px] lg:h-[390px]"
+              />
+
+              <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between rounded-2xl border border-white/20 bg-black/50 p-4 backdrop-blur-md">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#e5c58e]">
+                    Abrars Automobile
+                  </p>
+                  <h3 className="mt-1 text-lg font-bold text-white">
+                    Excellence in Motion
+                  </h3>
+                </div>
+
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c59d5f]/50 text-xl text-[#e5c58e]">
+                  ↗
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Form Section */}
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-8 lg:px-12 lg:py-16">
+        <div className="mb-9 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#b58a4b]">
+            Vehicle Registration
+          </p>
+
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#172033] sm:text-4xl">
+            Add a New Vehicle
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
+            Complete the information below to add a new automobile to your
+            exclusive collection.
+          </p>
+
+          <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-[#c59d5f]"></div>
         </div>
 
+        <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_70px_rgba(15,23,42,0.07)]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
+            {/* Main Form */}
+            <div className="p-5 sm:p-8 lg:p-10">
+              <form onSubmit={handleAddProduct}>
+                {/* Section 01 */}
+                <div className="mb-8">
+                  <div className="mb-6 flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#172033] text-sm font-bold text-[#e5c58e]">
+                      01
+                    </span>
 
-          
-        <div className="md:flex gap-2 justify-center mb-5">
-        <div className="form-control md:w-full">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Short Description</span>
-                    </label>
-                    <label className="input-group">
-             <input type="shortDescription" name="shortDescription" placeholder="Description of Car/Brand"  className="input input-bordered w-full" />
-          </label>
-       </div>
+                    <div>
+                      <h3 className="font-bold text-slate-800">
+                        Vehicle Identity
+                      </h3>
+                      <p className="text-xs text-slate-400">
+                        Basic information about the automobile
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label className={labelClass}>Vehicle Name *</label>
+
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="e.g. BMW X7 M60i"
+                        className={inputClass}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Vehicle Brand *</label>
+
+                      <select
+                        name="brandName"
+                        value={selectedBrand}
+                        onChange={(e) => setSelectedBrand(e.target.value)}
+                        className={inputClass}
+                        required
+                      >
+                        <option value="">Select a Brand</option>
+
+                        {brands.map((brand) => (
+                          <option key={brand.name} value={brand.name}>
+                            {brand.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Vehicle Type *</label>
+
+                      <input
+                        type="text"
+                        name="type"
+                        placeholder="e.g. SUV, Sedan, Coupe"
+                        className={inputClass}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Customer Rating *</label>
+
+                      <div className="relative">
+                        <input
+                          type="number"
+                          name="rating"
+                          min="0"
+                          max="5"
+                          step="0.1"
+                          placeholder="e.g. 4.8"
+                          className={`${inputClass} pr-16`}
+                          required
+                        />
+
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-amber-500">
+                          ★ / 5
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-8 border-t border-slate-100"></div>
+
+                {/* Section 02 */}
+                <div className="mb-8">
+                  <div className="mb-6 flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#172033] text-sm font-bold text-[#e5c58e]">
+                      02
+                    </span>
+
+                    <div>
+                      <h3 className="font-bold text-slate-800">
+                        Vehicle Details
+                      </h3>
+                      <p className="text-xs text-slate-400">
+                        Pricing and product description
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label className={labelClass}>Vehicle Price *</label>
+
+                      <input
+                        type="text"
+                        name="price"
+                        placeholder="e.g. $85,000"
+                        className={inputClass}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Image URL *</label>
+
+                      <input
+                        type="url"
+                        name="image"
+                        value={imageUrl}
+                        onChange={(e) => {
+                          setImageUrl(e.target.value);
+                          setImageError(false);
+                        }}
+                        placeholder="Enter image URL (Optional)"
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <label className={labelClass}>Short Description *</label>
+
+                    <textarea
+                      name="shortDescription"
+                      placeholder="Describe the vehicle's design, performance, features and driving experience..."
+                      className={`${inputClass} min-h-[130px] resize-y`}
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="mb-8 border-t border-slate-100"></div>
+
+                {/* Submit */}
+                <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-xs leading-5 text-slate-400">
+                    * All fields are required.
+                    <br />
+                    Please verify the information before submitting.
+                  </p>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="group inline-flex items-center justify-center gap-3 rounded-xl bg-[#172033] px-8 py-4 text-sm font-bold text-white shadow-lg shadow-slate-900/10 transition-all duration-300 hover:-translate-y-1 hover:bg-[#b58a4b] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {loading ? (
+                      <>
+                        <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white"></span>
+                        Adding Vehicle...
+                      </>
+                    ) : (
+                      <>
+                        Add Vehicle to Collection
+                        <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                          →
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Live Preview Sidebar */}
+            <aside className="border-t border-slate-200 bg-[#f8f9fb] p-5 sm:p-8 lg:border-l lg:border-t-0">
+              <div className="sticky top-8">
+                <div className="mb-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b58a4b]">
+                    Live Preview
+                  </p>
+
+                  <h3 className="mt-2 text-xl font-black text-[#172033]">
+                    Vehicle Showcase
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-slate-500">
+                    Your vehicle image will appear here when you provide a valid
+                    image URL.
+                  </p>
+                </div>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                  <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-100">
+                    {imageUrl && !imageError ? (
+                      <img
+                        src={imageUrl}
+                        alt="Vehicle preview"
+                        onError={() => setImageError(true)}
+                        className="h-full w-full object-contain p-3"
+                      />
+                    ) : (
+                      <div className="px-5 text-center">
+                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">
+                          🚘
+                        </div>
+
+                        <p className="mt-4 text-sm font-semibold text-slate-500">
+                          {imageError
+                            ? "Unable to load image"
+                            : "Image Preview"}
+                        </p>
+
+                        <p className="mt-1 text-xs text-slate-400">
+                          {imageError
+                            ? "Please check your image URL"
+                            : "Paste an image URL to preview"}
+                        </p>
+                      </div>
+                    )}
+
+                    <span className="absolute left-3 top-3 rounded-full bg-[#172033] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                      Preview
+                    </span>
+                  </div>
+
+                  <div className="p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#b58a4b]">
+                      {selectedBrand || "SELECTED BRAND"}
+                    </p>
+
+                    <h4 className="mt-2 text-lg font-black text-[#172033]">
+                      Your Vehicle Name
+                    </h4>
+
+                    <p className="mt-2 text-sm text-slate-400">
+                      Your vehicle details will be added to the collection.
+                    </p>
+
+                    <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+                      <span className="text-xs font-medium text-slate-400">
+                        Abrars Automobile
+                      </span>
+
+                      <span className="text-sm font-bold text-[#b58a4b]">
+                        ★ Premium
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Brand List */}
+                <div className="mt-7">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-500">
+                    Available Brands
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {brands.map((brand) => (
+                      <span
+                        key={brand.name}
+                        className={`rounded-lg border px-3 py-2 text-[10px] font-bold tracking-wide transition ${
+                          selectedBrand === brand.name
+                            ? "border-[#b58a4b] bg-[#b58a4b]/10 text-[#946c35]"
+                            : "border-slate-200 bg-white text-slate-500"
+                        }`}
+                      >
+                        {brand.label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-7 rounded-2xl bg-[#172033] p-5 text-white">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#e5c58e]">
+                    Pro Tip
+                  </p>
+
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    Use a high-resolution vehicle image with a clean background
+                    for a more professional product presentation.
+                  </p>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
-       
 
-        <div className="md:flex gap-2 justify-center mb-5">
-        <div className="form-control md:w-1/2">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Rating</span>
-                    </label>
-                    <label className="input-group">
-             <input type="rating" name="rating" placeholder="Put Your Rating, Please" className="input input-bordered w-full" />
-          </label>
-       </div>
+        {/* Bottom Signature */}
+        <div className="mt-10 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+            ABRARS AUTOMOBILE
+          </p>
 
-
-       <div className="form-control md:w-1/2 ml-4">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Price</span>
-                    </label>
-                    <label className="input-group">
-             <input type="price" name="price" placeholder="Price" className="input input-bordered w-full" />
-          </label>
-       </div>
+          <p className="mt-2 text-sm text-slate-500">
+            Driven by Excellence. Defined by Innovation.
+          </p>
         </div>
-     
-      
-        <div className="md:flex gap-2 justify-center mb-5">
-        <div className="form-control md:w-full">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Image</span>
-                    </label>
-                    <label className="input-group">
-             <input type="photo" name="image" placeholder="Paste Image URL" className="input input-bordered w-full" />
-          </label>
-       </div>
-
-
-       
-
-{/* 
-        <div className="form-control md:w-1/2">
-            <label className="label">
-              <span className="label-text font-semibold font-serif text-lg">Brand Name</span>
-                    </label>
-                    <label className="input-group">
-             <input type="brand name" name="brandName" placeholder="Brand Name" className="input input-bordered w-full" />
-          </label>
-       </div>
-
-
- */}
-
-
-
-        </div>
-      <input type="submit" value="Add & Pick Your Car" className="btn btn-block bg-[#652525] text-white text-xl p-3 mt-5 font-mono rounded-lg" />
-      </form>
-   
-        </div>
-
-
-
-    );
+      </section>
+    </main>
+  );
 };
 
 export default AddProduct;

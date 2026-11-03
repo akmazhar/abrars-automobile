@@ -1,0 +1,98 @@
+[
+  {
+    "id": "mercedes-benz",
+    "brand_name": "Mercedes-Benz",
+    "path": "/mercedes",
+    "bannerImages": [
+      "/cars/mercedes-benz-banner-1.png",
+      "/cars/mercedes-benz-banner-2.png",
+      "/cars/mercedes-benz-banner-3.png"
+    ],
+    "smallImages": [
+      "/cars/mercedes-benz-small-1.png",
+      "/cars/mercedes-benz-small-2.png",
+      "/cars/mercedes-benz-small-3.png",
+      "/cars/mercedes-benz-small-4.png"
+    ]
+  },
+  {
+    "id": "tesla",
+    "brand_name": "Tesla",
+    "path": "/tesla",
+    "bannerImages": [
+      "/cars/tesla-banner-1.png",
+      "/cars/tesla-banner-2.png",
+      "/cars/tesla-banner-3.png"
+    ],
+    "smallImages": [
+      "/cars/tesla-small-1.png",
+      "/cars/tesla-small-2.png",
+      "/cars/tesla-small-3.png",
+      "/cars/tesla-small-4.png"
+    ]
+  },
+  {
+    "id": "toyota",
+    "brand_name": "Toyota",
+    "path": "/toyota",
+    "bannerImages": [
+      "/cars/toyota-banner-1.png",
+      "/cars/toyota-banner-2.png",
+      "/cars/toyota-banner-3.png"
+    ],
+    "smallImages": [
+      "/cars/toyota-small-1.png",
+      "/cars/toyota-small-2.png",
+      "/cars/toyota-small-3.png",
+      "/cars/toyota-small-4.png"
+    ]
+  },
+  {
+    "id": "bmw",
+    "brand_name": "BMW",
+    "path": "/bmw",
+    "bannerImages": [
+      "/cars/bmw-banner-1.png",
+      "/cars/bmw-banner-2.png",
+      "/cars/bmw-banner-3.png"
+    ],
+    "smallImages": [
+      "/cars/bmw-small-1.png",
+      "/cars/bmw-small-2.png",
+      "/cars/bmw-small-3.png",
+      "/cars/bmw-small-4.png"
+    ]
+  },
+  {
+    "id": "ford",
+    "brand_name": "Ford",
+    "path": "/ford",
+    "bannerImages": [
+      "/cars/ford-banner-1.png",
+      "/cars/ford-banner-2.png",
+      "/cars/ford-banner-3.png"
+    ],
+    "smallImages": [
+      "/cars/ford-small-1.png",
+      "/cars/ford-small-2.png",
+      "/cars/ford-small-3.png",
+      "/cars/ford-small-4.png"
+    ]
+  },
+  {
+    "id": "honda",
+    "brand_name": "Honda",
+    "path": "/honda",
+    "bannerImages": [
+      "/cars/honda-banner-1.png",
+      "/cars/honda-banner-2.png",
+      "/cars/honda-banner-3.png"
+    ],
+    "smallImages": [
+      "/cars/honda-small-1.png",
+      "/cars/honda-small-2.png",
+      "/cars/honda-small-3.png",
+      "/cars/honda-small-4.png"
+    ]
+  }
+]

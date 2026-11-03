@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 const socialLinks = [
@@ -48,6 +47,7 @@ const Footer = ({ onSubscribeEmail }) => {
     type: "idle",
     message: "",
   });
+
   const [showTop, setShowTop] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -105,8 +105,7 @@ const Footer = ({ onSubscribeEmail }) => {
     } catch {
       setStatus({
         type: "error",
-        message:
-          "We couldn't complete your subscription. Please try again.",
+        message: "We couldn't complete your subscription. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -115,7 +114,7 @@ const Footer = ({ onSubscribeEmail }) => {
 
   const scrollToTop = () => {
     const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     window.scrollTo({
@@ -125,10 +124,9 @@ const Footer = ({ onSubscribeEmail }) => {
   };
 
   return (
-    <footer
-      className="relative isolate overflow-hidden border-t border-amber-400/20 bg-[#080808] text-white"
-    >
+    <footer className="relative isolate overflow-hidden border-t border-amber-400/20 bg-[#080808] text-white">
       {/* Decorative background */}
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.10),transparent_65%)]"
@@ -141,8 +139,10 @@ const Footer = ({ onSubscribeEmail }) => {
 
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         {/* Main footer grid */}
+
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
+
           <div className="space-y-6">
             <a
               href="#home"
@@ -167,8 +167,8 @@ const Footer = ({ onSubscribeEmail }) => {
             </a>
 
             <p className="max-w-sm text-sm leading-7 text-neutral-400">
-              Your journey, our commitment. Discover a better driving
-              experience with Abrar Enterprise, where trust meets the road.
+              Your journey, our commitment. Discover a better driving experience
+              with Abrar Enterprise, where trust meets the road.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -194,6 +194,7 @@ const Footer = ({ onSubscribeEmail }) => {
           </div>
 
           {/* Explore links */}
+
           <nav aria-label="Footer navigation">
             <h2 className="mb-6 text-xs font-bold uppercase tracking-[0.22em] text-amber-400">
               Explore
@@ -218,19 +219,111 @@ const Footer = ({ onSubscribeEmail }) => {
           </nav>
 
           {/* Contact */}
+
           <div>
             <h2 className="mb-6 text-xs font-bold uppercase tracking-[0.22em] text-amber-400">
-              Get in Touch
+              Contact Our Team
             </h2>
 
             <p className="mb-6 text-sm leading-7 text-neutral-400">
-              Have a question or need assistance? We would love to hear
-              from you.
+              Have a question or need assistance? Feel free to contact me
+              directly.
             </p>
 
+            <div className="space-y-5">
+              {/* Phone */}
+
+              <a
+                href="tel:+8801834888790"
+                className="group flex items-center gap-3 text-sm text-neutral-400 transition-colors hover:text-amber-300"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-amber-300 transition-all group-hover:border-amber-400/50 group-hover:bg-amber-400/10">
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.06 8.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7a2 2 0 0 1 1.76 2.04Z" />
+                  </svg>
+                </span>
+
+                <span>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                    Phone
+                  </span>
+                  <span className="font-semibold">+8801834888790</span>
+                </span>
+              </a>
+
+              {/* Email */}
+
+              <a
+                href="mailto:akmazharshuvo07@gmail.com"
+                className="group flex items-center gap-3 text-sm text-neutral-400 transition-colors hover:text-amber-300"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-amber-300 transition-all group-hover:border-amber-400/50 group-hover:bg-amber-400/10">
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-10 7L2 7" />
+                  </svg>
+                </span>
+
+                <span className="min-w-0">
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                    Email
+                  </span>
+                  <span className="break-all font-semibold">
+                    akmazharshuvo07@gmail.com
+                  </span>
+                </span>
+              </a>
+
+              {/* LinkedIn */}
+
+              <a
+                href="https://www.linkedin.com/in/akmazhar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 text-sm text-neutral-400 transition-colors hover:text-amber-300"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-amber-300 transition-all group-hover:border-amber-400/50 group-hover:bg-amber-400/10">
+                  <svg
+                    className="h-5 w-5 fill-current"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM8.08 18.45H5.12V9h2.96v9.45ZM6.6 7.71a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.03 10.74h-2.96v-4.6c0-1.1-.02-2.52-1.54-2.52-1.54 0-1.78 1.2-1.78 2.44v4.68H9.39V9h2.84v1.29h.04c.4-.75 1.36-1.54 2.8-1.54 3 0 3.56 1.97 3.56 4.53v5.17Z" />
+                  </svg>
+                </span>
+
+                <span>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                    LinkedIn
+                  </span>
+                  <span className="font-semibold">Connect with me</span>
+                </span>
+              </a>
+            </div>
+
             <a
-              href="#contact"
-              className="group inline-flex items-center gap-2 rounded-lg border border-amber-400/30 px-4 py-3 text-sm font-semibold text-amber-300 transition-all duration-300 hover:border-amber-400 hover:bg-amber-400 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+              href="https://www.linkedin.com/in/akmazhar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-7 inline-flex items-center gap-2 rounded-lg border border-amber-400/30 px-4 py-3 text-sm font-semibold text-amber-300 transition-all duration-300 hover:border-amber-400 hover:bg-amber-400 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
             >
               Contact Our Team
               <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -238,6 +331,7 @@ const Footer = ({ onSubscribeEmail }) => {
           </div>
 
           {/* Newsletter */}
+
           <div>
             <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.22em] text-amber-400">
               Stay Connected
@@ -322,14 +416,14 @@ const Footer = ({ onSubscribeEmail }) => {
                       : "text-neutral-500"
                 }`}
               >
-                {status.message ||
-                  "No spam. Unsubscribe whenever you like."}
+                {status.message || "No spam. Unsubscribe whenever you like."}
               </p>
             </form>
           </div>
         </div>
 
         {/* Bottom bar */}
+
         <div className="mt-14 border-t border-white/[0.08] pt-7 sm:mt-16">
           <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
             <p className="text-xs leading-6 text-neutral-500">
@@ -351,6 +445,7 @@ const Footer = ({ onSubscribeEmail }) => {
       </div>
 
       {/* Back to top */}
+
       <button
         type="button"
         onClick={scrollToTop}

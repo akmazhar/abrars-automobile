@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -6,13 +5,52 @@ import Banner from "./../../Component/Banner/Banner";
 import Mar from "./Mar";
 import FrontBrand from "../FrontBrand/FrontBrand";
 
+/* ---------------------------------------
+   Brand URL Mapping
+--------------------------------------- */
+
+const getBrandPath = (brandName) => {
+  const normalized = brandName
+    ?.trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "");
+
+  const brandRoutes = {
+    BMW: "/bmw",
+    MERCEDES: "/mercedes",
+    MERCEDESBENZ: "/mercedes",
+    TESLA: "/tesla",
+    TOYOTA: "/toyota",
+    HONDA: "/honda",
+    FORD: "/ford",
+  };
+
+  if (brandRoutes[normalized]) {
+    return brandRoutes[normalized];
+  }
+
+  return `/${brandName
+    ?.trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")}`;
+};
+
+/* ---------------------------------------
+   Home Component
+--------------------------------------- */
+
 const Home = () => {
   const [brandCard, setBrandCard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [currentTime, setCurrentTime] = useState(() => new Date());
 
-  // Automatically fetch brand data from the JSON file
+  /* ---------------------------------------
+     Load Brand Data from API Data JSON
+     File: public/cars/apidata.json
+  --------------------------------------- */
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -21,7 +59,7 @@ const Home = () => {
         setLoading(true);
         setError("");
 
-        const response = await fetch("/apidata.json", {
+        const response = await fetch("/cars/apidata.json", {
           signal: controller.signal,
         });
 
@@ -38,8 +76,10 @@ const Home = () => {
         setBrandCard(data);
       } catch (err) {
         if (err.name !== "AbortError") {
+          console.error("Brand loading error:", err);
+
           setError(
-            "We couldn't load the brands. Please refresh the page and try again."
+            "We couldn't load the brands. Please refresh the page and try again.",
           );
         }
       } finally {
@@ -54,7 +94,10 @@ const Home = () => {
     return () => controller.abort();
   }, []);
 
-  // Live date and time
+  /* ---------------------------------------
+     Live Date & Time
+  --------------------------------------- */
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -77,17 +120,21 @@ const Home = () => {
     hour12: true,
   }).format(currentTime);
 
+  /* ---------------------------------------
+     Home Page UI
+  --------------------------------------- */
+
   return (
     <main className="min-h-screen overflow-hidden bg-slate-950 text-white">
-      {/* Main banner */}
+      {/* Main Banner */}
       <Banner />
 
-      {/* Premium automotive introduction */}
+      {/* Premium Automotive Introduction */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl lg:grid-cols-2">
-          <div className="relative min-h-[280px] overflow-hidden sm:min-h-[400px]">
+        <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl">
+          <div className="relative min-h-[280px] overflow-hidden sm:min-h-[400px] lg:col-span-1">
             <img
-              src="https://i.ibb.co.com/yc2C2kNn/ALLBRAND.png"
+              src="https://i.ibb.co.com/21SHp1Hh/all-brnd.png"
               alt="Premium automotive experience"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
@@ -108,7 +155,7 @@ const Home = () => {
             <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-5xl xl:text-6xl">
               Experience Luxury Behind{" "}
               <span className="mt-2 block text-amber-400">
-                The Wheels.
+                The Wheels of Abrar.
               </span>
             </h1>
 
@@ -136,7 +183,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Live date and time */}
+      {/* Live Date and Time */}
       <section
         aria-label="Current date and time"
         className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8"
@@ -146,28 +193,27 @@ const Home = () => {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
               Your time, your journey
             </p>
-            <p className="mt-2 text-sm text-slate-300">
-              {formattedDate}
-            </p>
+
+            <p className="mt-2 text-sm text-slate-300">{formattedDate}</p>
           </div>
 
           <div className="sm:text-right">
             <p className="font-mono text-2xl font-bold tracking-wider text-amber-400 sm:text-3xl">
               {formattedTime}
             </p>
-            <p className="mt-1 text-xs text-slate-400">
-              Local device time
-            </p>
+
+            <p className="mt-1 text-xs text-slate-400">Local device time</p>
           </div>
         </div>
       </section>
 
-      {/* Featured brands */}
+      {/* Featured Brands */}
       <section
         id="featured-brands"
         className="scroll-mt-20 bg-slate-900/70 py-16 sm:py-20"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Section Heading */}
           <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-amber-400">
@@ -193,6 +239,7 @@ const Home = () => {
             </span>
           </div>
 
+          {/* Loading Skeleton */}
           {loading && (
             <div
               className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
@@ -204,7 +251,8 @@ const Home = () => {
                   key={item}
                   className="animate-pulse overflow-hidden rounded-2xl border border-white/10 bg-slate-800"
                 >
-                  <div className="h-56 bg-slate-700" />
+                  <div className="h-64 bg-slate-700" />
+
                   <div className="space-y-3 p-5">
                     <div className="h-5 w-2/3 rounded bg-slate-700" />
                     <div className="h-4 w-1/2 rounded bg-slate-700" />
@@ -214,12 +262,14 @@ const Home = () => {
             </div>
           )}
 
+          {/* Error Message */}
           {!loading && error && (
             <div
               role="alert"
               className="rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
             >
               <p className="text-red-300">{error}</p>
+
               <button
                 type="button"
                 onClick={() => window.location.reload()}
@@ -230,57 +280,78 @@ const Home = () => {
             </div>
           )}
 
+          {/* Empty State */}
           {!loading && !error && brandCard.length === 0 && (
             <p className="rounded-2xl border border-white/10 p-8 text-center text-slate-300">
               No brands are available at the moment.
             </p>
           )}
 
+          {/* Brand Cards */}
           {!loading && !error && brandCard.length > 0 && (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {brandCard.map((brand) => (
-                <Link
-                  key={brand.id ?? brand.brand_name}
-                  to={`/${brand.brand_name}`}
-                  aria-label={`Explore ${brand.brand_name}`}
-                  className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-950 transition-all duration-300 hover:-translate-y-2 hover:border-amber-400/60 hover:shadow-2xl hover:shadow-amber-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
-                >
-                  <div className="relative h-56 overflow-hidden bg-slate-800">
-                    <img
-                      src={brand.image}
-                      alt={brand.brand_name || "Automotive brand"}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+              {brandCard.map((brand, index) => {
+                const brandPath = brand.path || getBrandPath(brand.brand_name);
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                return (
+                  <Link
+                    key={brand.id ?? brand.brand_name ?? index}
+                    to={brandPath}
+                    aria-label={`Explore ${brand.brand_name}`}
+                    className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-950 transition-all duration-300 hover:-translate-y-2 hover:border-amber-400/60 hover:shadow-2xl hover:shadow-amber-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                  >
+                    {/* Brand Logo from apidata.json */}
+                    <div className="relative flex h-64 items-center justify-center overflow-hidden bg-white p-8">
+                      {brand.image ? (
+                        <img
+                          src={brand.image}
+                          alt={`${brand.brand_name || "Automotive"} brand`}
+                          loading="lazy"
+                          className="h-44 w-44object-contain transition-transform duration-500 group-hover:scale-110"
+                          onError={(e) => {
+                            console.error(
+                              `Failed to load ${brand.brand_name} logo:`,
+                              e.currentTarget.src,
+                            );
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                      ) : (
+                        <span className="text-xl font-bold text-slate-800">
+                          {brand.brand_name}
+                        </span>
+                      )}
 
-                    <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-slate-950 transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/10 via-transparent to-transparent" />
 
-                  <div className="p-5">
-                    <h3 className="text-xl font-bold text-white transition-colors group-hover:text-amber-400">
-                      {brand.brand_name}
-                    </h3>
+                      <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-slate-950 transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </div>
 
-                    <p className="mt-2 text-sm text-slate-400">
-                      Discover the collection
-                    </p>
+                    {/* Brand Information */}
+                    <div className="p-5">
+                      <h3 className="text-xl font-bold text-white transition-colors group-hover:text-amber-400">
+                        {brand.brand_name}
+                      </h3>
 
-                    <span className="mt-5 inline-block border-b border-amber-400/50 pb-1 text-sm font-semibold text-amber-400">
-                      Explore Brand
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                      <p className="mt-2 text-sm text-slate-400">
+                        Discover the collection
+                      </p>
+
+                      <span className="mt-5 inline-block border-b border-amber-400/50 pb-1 text-sm font-semibold text-amber-400">
+                        Explore Brand
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
 
-      {/* Video showcase */}
+      {/* Video Showcase */}
       <section
         id="showcase"
         className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
@@ -295,8 +366,8 @@ const Home = () => {
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
-            Step into a world where exceptional design meets the thrill of
-            the open road.
+            Step into a world where exceptional design meets the thrill of the
+            open road.
           </p>
         </div>
 
@@ -316,11 +387,12 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Existing components */}
+      {/* Marquee Section */}
       <section className="border-t border-white/10">
         <Mar />
       </section>
 
+      {/* Front Brand Section */}
       <section>
         <FrontBrand />
       </section>

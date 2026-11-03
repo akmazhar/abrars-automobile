@@ -1,15 +1,12 @@
-
-
-
+import Toast from "./Component/Toast/Toast";
 
 function App() {
   return (
-    <div>
-      <div>
-       
+    <>
+      <Toast />
 
-      </div>
-    </div>
+      {/* তোমার বাকি Routes এবং Components */}
+    </>
   );
 }
 

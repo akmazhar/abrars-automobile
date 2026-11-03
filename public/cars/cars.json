@@ -1,0 +1,218 @@
+[
+  {
+    "name": "Mercedes-Benz GLE",
+    "rating": "4.00",
+    "price": "$57,250",
+    "type": "SUV",
+    "shortDescription": "A premium luxury SUV combining elegant design, powerful performance, advanced technology, and exceptional driving comfort.",
+    "image": "/cars/mercedes-benz-small-1.png",
+    "brand_name": "MERCEDES-BENZ"
+  },
+  {
+    "name": "Honda CBR250RR",
+    "rating": "4.5",
+    "price": "$4500",
+    "type": "Sport",
+    "shortDescription": "A stylish lightweight sport motorcycle offering agile handling, responsive performance, and an exciting riding experience.",
+    "image": "/cars/honda-small-1.png",
+    "brand_name": "HONDA"
+  },
+  {
+    "name": "Tesla Model Y",
+    "rating": "5.00",
+    "price": "$49990",
+    "type": "Electric SUV",
+    "shortDescription": "An all-electric SUV featuring modern technology, impressive driving range, spacious interiors, and advanced safety features.",
+    "image": "/cars/tesla-small-1.png",
+    "brand_name": "TESLA"
+  },
+  {
+    "name": "Toyota Camry",
+    "rating": "4.6",
+    "price": "$25000",
+    "type": "Sedan",
+    "shortDescription": "A refined and reliable sedan offering comfortable seating, smooth performance, modern styling, and everyday practicality.",
+    "image": "/cars/toyota-small-1.png",
+    "brand_name": "TOYOTA"
+  },
+  {
+    "name": "Mercedes-Benz C-Class",
+    "rating": "4.5",
+    "price": "$41,600",
+    "type": "Sedan",
+    "shortDescription": "Compact luxury sedan with sporty performance and stylish design",
+    "image": "/cars/mercedes-benz-small-2.png",
+    "brand_name": "MERCEDES-BENZ"
+  },
+  {
+    "name": "Ford F-150",
+    "rating": "4.8",
+    "price": "$40,000",
+    "type": "Sedan 5g",
+    "shortDescription": "A rugged and reliable car built for tough and long travel",
+    "image": "/cars/ford-small-1.png",
+    "brand_name": "FORD"
+  },
+  {
+    "name": "BMW",
+    "rating": "4.69",
+    "price": "$309000",
+    "type": "mk-o",
+    "shortDescription": "awesome",
+    "image": "/cars/bmw-small-1.png",
+    "brand_name": "BMW"
+  },
+  {
+    "name": "Toyota Corolla",
+    "rating": "4.7",
+    "price": "$22000",
+    "type": "Sedan",
+    "shortDescription": "Reliable and fuel-efficient daily driver",
+    "image": "/cars/toyota-small-2.png",
+    "brand_name": "TOYOTA"
+  },
+  {
+    "name": "Toyota RAV4",
+    "rating": "4.6",
+    "price": "$28000",
+    "type": "SUV",
+    "shortDescription": "Spacious and versatile family SUV",
+    "image": "/cars/toyota-small-3.png",
+    "brand_name": "TOYOTA"
+  },
+  {
+    "name": "Toyota Prius",
+    "rating": "4.4",
+    "price": "$27000",
+    "type": "Hybrid",
+    "shortDescription": "Eco-friendly hybrid with great mileage",
+    "image": "/cars/toyota-small-4.png",
+    "brand_name": "TOYOTA"
+  },
+  {
+    "name": "Toyota Highlander",
+    "rating": "4.8",
+    "price": "$36000",
+    "type": "SUV",
+    "shortDescription": "Comfortable three-row family SUV",
+    "image": "/cars/toyota-small-1.png",
+    "brand_name": "TOYOTA"
+  },
+  {
+    "name": "BMW 3 Series",
+    "rating": "4.7",
+    "price": "$43000",
+    "type": "Sedan",
+    "shortDescription": "Sporty luxury sedan with advanced tech",
+    "image": "/cars/bmw-small-2.png",
+    "brand_name": "BMW"
+  },
+  {
+    "name": "BMW X5",
+    "rating": "4.9",
+    "price": "$61000",
+    "type": "SUV",
+    "shortDescription": "High-performance luxury midsize SUV",
+    "image": "/cars/bmw-small-3.png",
+    "brand_name": "BMW"
+  },
+  {
+    "name": "BMW i4",
+    "rating": "4.6",
+    "price": "$52000",
+    "type": "Electric",
+    "shortDescription": "All-electric gran coupe with thrilling dynamics",
+    "image": "/cars/bmw-small-4.png",
+    "brand_name": "BMW"
+  },
+  {
+    "name": "BMW M4",
+    "rating": "4.9",
+    "price": "$78000",
+    "type": "Sport",
+    "shortDescription": "High-performance sports coupe",
+    "image": "/cars/bmw-small-1.png",
+    "brand_name": "BMW"
+  },
+  {
+    "name": "Ford Mustang",
+    "rating": "4.7",
+    "price": "$31000",
+    "type": "Sport",
+    "shortDescription": "Iconic American muscle car",
+    "image": "/cars/ford-small-2.png",
+    "brand_name": "FORD"
+  },
+  {
+    "name": "Ford Explorer",
+    "rating": "4.5",
+    "price": "$36700",
+    "type": "SUV",
+    "shortDescription": "Capable and roomy adventure SUV",
+    "image": "/cars/ford-small-3.png",
+    "brand_name": "FORD"
+  },
+  {
+    "name": "Ford Escape",
+    "rating": "4.4",
+    "price": "$28000",
+    "type": "SUV",
+    "shortDescription": "Compact crossover with modern features",
+    "image": "/cars/ford-small-4.png",
+    "brand_name": "FORD"
+  },
+  {
+    "name": "Ford Ranger",
+    "rating": "4.6",
+    "price": "$32000",
+    "type": "Truck",
+    "shortDescription": "Midsize pickup truck built for work and play",
+    "image": "/cars/ford-small-1.png",
+    "brand_name": "FORD"
+  },
+  {
+    "name": "Honda Civic",
+    "rating": "4.8",
+    "price": "$24000",
+    "type": "Sedan",
+    "shortDescription": "Popular compact car with sleek styling",
+    "image": "/cars/honda-small-2.png",
+    "brand_name": "HONDA"
+  },
+  {
+    "name": "Honda Accord",
+    "rating": "4.8",
+    "price": "$27000",
+    "type": "Sedan",
+    "shortDescription": "Spacious and comfortable midsize sedan",
+    "image": "/cars/honda-small-3.png",
+    "brand_name": "HONDA"
+  },
+  {
+    "name": "Honda CR-V",
+    "rating": "4.7",
+    "price": "$29500",
+    "type": "SUV",
+    "shortDescription": "Top-rated compact SUV for everyday use",
+    "image": "/cars/honda-small-4.png",
+    "brand_name": "HONDA"
+  },
+  {
+    "name": "Honda Pilot",
+    "rating": "4.6",
+    "price": "$39000",
+    "type": "SUV",
+    "shortDescription": "Rugged and family-friendly midsize SUV",
+    "image": "/cars/honda-small-1.png",
+    "brand_name": "HONDA"
+  },
+  {
+    "name": "Honda Odyssey",
+    "rating": "4.7",
+    "price": "$38000",
+    "type": "Minivan",
+    "shortDescription": "The ultimate family minivan with smart storage",
+    "image": "/cars/honda-small-2.png",
+    "brand_name": "HONDA"
+  }
+]

@@ -1,32 +1,38 @@
 [
-    {
-        "id": 1,
-        "brand_name": "tesla",
-        "image": "https://i.ibb.co/yRmJPKJ/TESLA-LOGO.png"
-    },
-    {
-        "id": 2,
-        "brand_name": "toyota",
-        "image": "https://i.ibb.co/3sxQS81/TOYOTA-LOGO.png"
-    },
-    {
-        "id": 3,
-        "brand_name": "bmw",
-        "image": "https://i.ibb.co/9Y3BJ4B/BMW-LOGO.png"
-    },
-    {
-        "id": 4,
-        "brand_name": "ford",
-        "image": "https://i.ibb.co/wyPjqX2/FORD-LOGO.png"
-    },
-    {
-        "id": 5,
-        "brand_name": "honda",
-        "image": "https://i.ibb.co/z4pTFck/HONDA-LOGO.png"
-    },
-    {
-        "id": 6,
-        "brand_name": "mercedes",
-        "image": "https://i.ibb.co/72FjJzC/Mercedes-Benz-LOGO.png"
-    }
+  {
+    "id": 1,
+    "brand_name": "Tesla",
+    "image": "/cars/tesla.jpg",
+    "path": "/tesla"
+  },
+  {
+    "id": 2,
+    "brand_name": "Toyota",
+    "image": "/cars/toyota.jpg",
+    "path": "/toyota"
+  },
+  {
+    "id": 3,
+    "brand_name": "BMW",
+    "image": "/cars/bmw.jpg",
+    "path": "/bmw"
+  },
+  {
+    "id": 4,
+    "brand_name": "Ford",
+    "image": "/cars/ford.jpg",
+    "path": "/ford"
+  },
+  {
+    "id": 5,
+    "brand_name": "Honda",
+    "image": "/cars/honda.jpg",
+    "path": "/honda"
+  },
+  {
+    "id": 6,
+    "brand_name": "Mercedes Benz",
+    "image": "/cars/mercedes-benz.jpg",
+    "path": "/mercedes"
+  }
 ]
