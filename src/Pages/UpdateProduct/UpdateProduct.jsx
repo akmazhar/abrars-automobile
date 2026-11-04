@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLoaderData, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 import API_URL from "../../config/api";
 
 const UpdateProduct = () => {
@@ -36,15 +35,9 @@ const UpdateProduct = () => {
     const updatedType = form.type.value.trim();
     const updatedRating = Number(form.rating.value);
     const updatedPrice = form.price.value.trim();
-    const updatedImage = form.image.value.trim();
+    const updatedImage = form.image.value.trim() || image;
 
-    if (
-      !updatedName ||
-      !updatedBrand ||
-      !updatedType ||
-      !updatedPrice ||
-      !updatedImage
-    ) {
+    if (!updatedName || !updatedBrand || !updatedType || !updatedPrice) {
       Swal.fire({
         icon: "warning",
         title: "Missing Information",
@@ -362,22 +355,23 @@ const UpdateProduct = () => {
                   htmlFor="car-image"
                   className="mb-2 block text-sm font-semibold text-[#263246]"
                 >
-                  Vehicle Image URL *
+                  Vehicle Image URL (Optional)
                 </label>
 
                 <input
                   id="car-image"
-                  type="url"
+                  type="text"
                   name="image"
                   defaultValue={image}
                   placeholder="Enter image URL (Optional)"
-                  required
-                  onChange={(e) => setImagePreview(e.target.value.trim())}
+                  onChange={(e) =>
+                    setImagePreview(e.target.value.trim() || image)
+                  }
                   className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm outline-none transition focus:border-[#c59d5f] focus:bg-white focus:ring-4 focus:ring-[#c59d5f]/10"
                 />
 
                 <p className="mt-2 text-xs text-gray-400">
-                  Paste a valid publicly accessible image URL.
+                  Optional. Leave empty to keep the existing vehicle image.
                 </p>
               </div>
 

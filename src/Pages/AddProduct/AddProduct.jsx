@@ -321,10 +321,12 @@ const AddProduct = () => {
                     </div>
 
                     <div>
-                      <label className={labelClass}>Image URL *</label>
+                      <label className={labelClass}>
+                        Vehicle Image URL (Optional)
+                      </label>
 
                       <input
-                        type="url"
+                        type="text"
                         name="image"
                         value={imageUrl}
                         onChange={(e) => {
@@ -354,9 +356,9 @@ const AddProduct = () => {
                 {/* Submit */}
                 <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs leading-5 text-slate-400">
-                    * All fields are required.
+                    * Required fields must be completed.
                     <br />
-                    Please verify the information before submitting.
+                    Vehicle Image URL is optional. You can leave it empty.
                   </p>
 
                   <button
@@ -395,8 +397,8 @@ const AddProduct = () => {
                   </h3>
 
                   <p className="mt-2 text-sm leading-6 text-slate-500">
-                    Your vehicle image will appear here when you provide a valid
-                    image URL.
+                    Vehicle image is optional. Add an image URL or continue
+                    without one.
                   </p>
                 </div>
 
@@ -424,7 +426,7 @@ const AddProduct = () => {
                         <p className="mt-1 text-xs text-slate-400">
                           {imageError
                             ? "Please check your image URL"
-                            : "Paste an image URL to preview"}
+                            : "Add an image URL or continue without one"}
                         </p>
                       </div>
                     )}
