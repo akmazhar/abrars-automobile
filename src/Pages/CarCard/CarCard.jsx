@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -202,31 +201,63 @@ const CarCard = ({ car = {}, onDelete }) => {
 
         {/* Action Buttons */}
         <div className="mt-auto space-y-3">
-          {/* View Details */}
+          {/* Premium View Details Button */}
           <Link
             to={_id ? `/productDetails/${_id}` : "#"}
             onClick={(e) => {
               if (!_id) e.preventDefault();
             }}
-            className={`group/btn flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-3.5 text-sm font-extrabold text-slate-950 shadow-lg shadow-amber-400/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-amber-400/20 ${
+            className={`group/details relative flex w-full items-center justify-between overflow-hidden rounded-xl border border-amber-300/30 bg-gradient-to-r from-[#c18b32] via-[#f2c66d] to-[#dca849] px-5 py-4 text-sm font-extrabold text-[#111827] shadow-[0_8px_30px_rgba(217,166,75,0.15)] transition-all duration-500 hover:-translate-y-1 hover:border-amber-200 hover:shadow-[0_12px_35px_rgba(217,166,75,0.35)] active:scale-[0.98] ${
               !_id ? "cursor-not-allowed opacity-50" : ""
             }`}
           >
-            View Details
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-1000 group-hover/details:translate-x-full" />
+
+            <span className="relative flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-black/10 bg-black/10">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 12s3.5-7 9.75-7 9.75 7 9.75 7-3.5 7-9.75 7-9.75-7-9.75-7z"
+                  />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </span>
+
+              <span className="text-left">
+                <span className="block text-[10px] font-bold uppercase tracking-[0.18em] opacity-70">
+                  Discover More
+                </span>
+                <span className="block text-sm font-black tracking-wide">
+                  View Details
+                </span>
+              </span>
+            </span>
+
+            <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/10 transition-all duration-300 group-hover/details:translate-x-1 group-hover/details:bg-black/15">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 transition-transform duration-300 group-hover/details:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 12h14m-6-6 6 6-6 6"
+                />
+              </svg>
+            </span>
           </Link>
 
           {/* Edit & Delete */}
@@ -259,9 +290,10 @@ const CarCard = ({ car = {}, onDelete }) => {
 
             <button
               type="button"
-              onClick={handleDelete}
-              disabled={deleting || !_id}
-              className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-3 text-sm font-bold text-red-400 transition-all duration-300 hover:border-red-500/50 hover:bg-red-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+              disabled
+              aria-disabled="true"
+              title="Delete temporarily unavailable"
+              className="flex cursor-not-allowed items-center justify-center gap-2 rounded-xl border border-red-500/10 bg-red-500/[0.04] px-3 py-3 text-sm font-bold text-red-400/50 opacity-60"
             >
               {deleting ? (
                 <>
